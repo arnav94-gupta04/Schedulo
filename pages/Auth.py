@@ -67,7 +67,7 @@ if not st.session_state.show_signup:
                 st.success(f"Welcome, {user[1]} {user[2]}!")
                 st.session_state.authenticated = True
                 st.session_state.user_email = email
-                st.switch_page("Chatbot")
+                st.switch_page("pages/Chatbot.py")
             else:
                 st.error("Invalid email or password.")
     st.markdown("---")

@@ -6,8 +6,11 @@ from dotenv import load_dotenv
 from groq import Groq
 from database import ScheduloDatabase
 
+st.set_page_config(page_title="Schedulo - Chatbot", page_icon="🤖")
+
 load_dotenv()
 client = Groq()
+
 
 # -----------------------------------
 # Extraction using Groq API
@@ -75,7 +78,6 @@ def extract_information(input_text):
 # -----------------------------------
 # Streamlit Chatbot UI
 # -----------------------------------
-st.set_page_config(page_title="Schedulo Chatbot")
 st.markdown(
     """
     <style>
@@ -163,9 +165,8 @@ if user_input := st.chat_input("Enter scheduling details:"):
     with st.chat_message("assistant", avatar=":material/robot_2:"):
         st.markdown(ack)
 
-st.set_page_config(page_title="SchedulO - Chatbot", page_icon="🤖")
 
 if st.button("Submit Data"):
     st.success("Your timetable data has been stored successfully!")
     if st.button("Proceed to Timetable"):
-        st.switch_page("Timetable")
+        st.switch_page("pages/Timetable.py")
