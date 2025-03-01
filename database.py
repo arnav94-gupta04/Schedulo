@@ -4,7 +4,7 @@ class ScheduloDatabase:
     def __init__(self, db_file="schedulo.db"):
         self.db_file = db_file
         self.conn = sqlite3.connect(self.db_file)
-        self.conn.row_factory = sqlite3.Row  # so we can access columns by name
+        self.conn.row_factory = sqlite3.Row  # So we can access columns by name
         self.create_tables()
 
     def create_tables(self):
@@ -104,6 +104,11 @@ class ScheduloDatabase:
         c.execute("SELECT * FROM Users WHERE email = ? AND password = ?", (email, password))
         return c.fetchone()
 
+    def get_user_by_email(self, email):
+        c = self.conn.cursor()
+        c.execute("SELECT * FROM Users WHERE email = ?", (email,))
+        return c.fetchone()
+
     # --- Academic Years ---
     def insert_academic_year(self, year):
         c = self.conn.cursor()
@@ -150,6 +155,20 @@ class ScheduloDatabase:
         c = self.conn.cursor()
         c.execute("SELECT * FROM Subjects")
         return c.fetchall()
+
+    def update_subject(self, code, name, year, type, min_hours_per_week):
+        c = self.conn.cursor()
+        c.execute("""
+            UPDATE Subjects
+            SET name = ?, year = ?, type = ?, min_hours_per_week = ?
+            WHERE code = ?
+        """, (name, year, type, min_hours_per_week, code))
+        self.conn.commit()
+
+    def delete_subject(self, code):
+        c = self.conn.cursor()
+        c.execute("DELETE FROM Subjects WHERE code = ?", (code,))
+        self.conn.commit()
 
     # --- Teachers ---
     def insert_teacher(self, code, name, max_workload):
