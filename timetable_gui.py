@@ -46,7 +46,7 @@ st.set_page_config(layout="wide")
 #Remove this part to remove the Title + Image
 with st.container():
     st.image(r"C:\Users\YASMEEN\Downloads\Pretty.png", width=100)
-    st.markdown("<h3 style='padding: 0px; margin-bottom: 10px;' >SchedulO</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='padding: 0px; margin-bottom: 10px;' >schedulo</h3>", unsafe_allow_html=True)
     
 # Remove default hamburger menu
 st.markdown(
