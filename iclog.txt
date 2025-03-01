@@ -1,0 +1,5 @@
+01 - 03 - 25
+Version 00 - This was an experimental code that was used as a reference.
+Version 01 - This was Streamlit inclusive code. It was difficult to edit and debug.
+Version 02 - This was a CLI functional version.
+Version 03 - This is the current version. This is a refined functionality of Version 02.
