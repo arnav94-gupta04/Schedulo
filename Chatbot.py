@@ -1,20 +1,14 @@
-import streamlit as st
 import json
 import time
 import os
 from dotenv import load_dotenv
 from groq import Groq
-from Version02.database import ScheduloDatabase
-
-st.set_page_config(page_title="Schedulo - Chatbot", page_icon="🤖")
+from database import ScheduloDatabase
 
 load_dotenv()
 client = Groq()
+db = ScheduloDatabase()
 
-
-# -----------------------------------
-# Extraction using Groq API
-# -----------------------------------
 def build_extraction_prompt(input_text):
     prompt = f"""
 You are an extractor. Given the following unstructured text about a university timetable, extract and output a JSON object with exactly the following keys:
@@ -52,83 +46,36 @@ def extract_information(input_text):
         if chunk.choices[0].delta.content:
             response_text += chunk.choices[0].delta.content
             time.sleep(0.02)
-    
-    # Clean up the response text
-    response_text = response_text.strip()
-    # Remove backticks and any markdown formatting
-    response_text = response_text.replace('`', '').strip()
-    
+    response_text = response_text.strip().replace('`', '').strip()
     try:
         info = json.loads(response_text)
         return info
     except json.JSONDecodeError as e:
-        st.error(f"JSON parsing error: {str(e)}\nResponse was:\n{repr(response_text)}")
-        # Try to clean up common JSON formatting issues
+        print(f"JSON parsing error: {str(e)}\nResponse was:\n{repr(response_text)}")
         try:
-            # Remove any potential BOM or invisible characters
             response_text = response_text.encode().decode('utf-8-sig')
-            # Replace any Windows-style line endings
             response_text = response_text.replace('\r\n', '\n')
             info = json.loads(response_text)
             return info
         except Exception as e:
-            st.error(f"Failed to parse JSON even after cleanup: {str(e)}")
+            print(f"Failed to parse JSON even after cleanup: {str(e)}")
             return None
-        
-# -----------------------------------
-# Streamlit Chatbot UI
-# -----------------------------------
-st.markdown(
-    """
-    <style>
-    .stAppDeployButton{ visibility: hidden; }
-    .stMainMenu{ visibility: hidden; }
-    .stChatMessage{ background-color: #ffcccc; }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-#st.image(r"C:\Users\YASMEEN\Downloads\Pretty.png", width=50)
-st.title("Schedulo Chatbot")
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# Display chat history
-for message in st.session_state.messages:
-    avatar = ":material/supervisor_account:" if message["role"] == "user" else ":material/robot_2:"
-    with st.chat_message(message["role"], avatar=avatar):
-        st.markdown(message["content"])
-
-# Initialize database (from your separate database.py)
-db = ScheduloDatabase()
-
-# Accept user input
-if user_input := st.chat_input("Enter scheduling details:"):
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user", avatar=":material/supervisor_account:"):
-        st.markdown(user_input)
-    
-    # Extract structured information using Groq API
+def process_input(user_input):
     info = extract_information(user_input)
-    
     if info is not None:
-        # Store academic years
         academic_years = info.get("academic_years", [])
         for year in academic_years:
             db.insert_academic_year(year)
         
-        # Store divisions
         divisions = info.get("divisions", [])
         for d in divisions:
             db.insert_division(d.get("year"), d.get("division"))
         
-        # Store batches
         batches = info.get("batches", [])
         for b in batches:
             db.insert_batch(b.get("division"), b.get("batch"))
         
-        # Store subjects
         subjects = info.get("subjects", [])
         for s in subjects:
             try:
@@ -137,7 +84,6 @@ if user_input := st.chat_input("Enter scheduling details:"):
                 hours = 0
             db.insert_subject(s.get("code"), s.get("name"), s.get("year"), s.get("type"), hours)
         
-        # Store teachers and assign subjects
         teachers = info.get("teachers", [])
         for t in teachers:
             try:
@@ -148,7 +94,6 @@ if user_input := st.chat_input("Enter scheduling details:"):
             for subj in t.get("subjects", []):
                 db.insert_teacher_subject(t.get("code"), subj)
         
-        # Store venues
         venues = info.get("venues", [])
         for v in venues:
             db.insert_venue(v.get("name"), v.get("type"))
@@ -160,13 +105,10 @@ if user_input := st.chat_input("Enter scheduling details:"):
         )
     else:
         ack = "No valid information was extracted from the input."
-    
-    st.session_state.messages.append({"role": "assistant", "content": ack})
-    with st.chat_message("assistant", avatar=":material/robot_2:"):
-        st.markdown(ack)
+    return ack
 
-
-if st.button("Submit Data"):
-    st.success("Your timetable data has been stored successfully!")
-    if st.button("Proceed to Timetable"):
-        st.switch_page("pages/Timetable.py")
+if __name__ == "__main__":
+    print("Schedulo Chatbot")
+    user_input = input("Enter scheduling details: ")
+    result = process_input(user_input)
+    print(result)
