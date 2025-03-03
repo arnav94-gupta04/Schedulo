@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Calendar</title>
+    <!-- HTMX for interactivity -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <!-- Simple CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        .calendar {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .calendar-header {
+            display: grid;
+            grid-template-columns: 150px repeat(var(--time-slot-count), 80px);
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+        .calendar-header-cell {
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-right: 1px solid #ddd;
+        }
+        .group-header {
+            padding: 10px;
+            background-color: #eee;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        .resource-row {
+            display: grid;
+            grid-template-columns: 150px repeat(var(--time-slot-count), 80px);
+            border-bottom: 1px solid #ddd;
+            position: relative;
+            min-height: 50px;
+        }
+        .resource-name {
+            padding: 10px;
+            border-right: 1px solid #ddd;
+        }
+        .time-cell {
+            border-right: 1px solid #ddd;
+            min-height: 50px;
+        }
+        .event {
+            position: absolute;
+            top: 5px;
+            height: 40px;
+            padding: 5px;
+            border-radius: 4px;
+            color: white;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        input, select, button {
+            padding: 8px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Timeline Calendar</h1>
+        
+        <div class="controls">
+            <form hx-get="/calendar" hx-target="#calendar-container" hx-swap="innerHTML">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" value="{{ selected_date }}">
+                
+                <label for="time_start">Start Time:</label>
+                <select id="time_start" name="time_start">
+                    {% for hour in range(6, 13) %}
+                        <option value="{{ hour }}" {% if hour == time_start %}selected{% endif %}>{{ hour }}:00</option>
+                    {% endfor %}
+                </select>
+                
+                <label for="time_end">End Time:</label>
+                <select id="time_end" name="time_end">
+                    {% for hour in range(14, 24) %}
+                        <option value="{{ hour }}" {% if hour == time_end %}selected{% endif %}>{{ hour }}:00</option>
+                    {% endfor %}
+                </select>
+                
+                <button type="submit">Update Calendar</button>
+            </form>
+        </div>
+        
+        <div id="calendar-container">
+            {% include 'calendar_partial.html' %}
+        </div>
+    </div>
+</body>
+</html>

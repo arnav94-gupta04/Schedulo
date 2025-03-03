@@ -1,0 +1,49 @@
+<div class="calendar">
+    <style>
+        :root {
+            --time-slot-count: {{ time_slots|length }};
+        }
+    </style>
+    
+    <!-- Header row with times -->
+    <div class="calendar-header">
+        <div class="calendar-header-cell">Resources</div>
+        {% for hour in time_slots %}
+            <div class="calendar-header-cell">{{ hour }}:00</div>
+        {% endfor %}
+    </div>
+    
+    <!-- Resource groups and events -->
+    {% for group_name, group_resources in grouped_resources.items() %}
+        <div class="group-section">
+            <!-- Group header -->
+            <div class="group-header">{{ group_name }}</div>
+            
+            <!-- Resources in this group -->
+            {% for resource in group_resources %}
+                <div class="resource-row">
+                    <!-- Resource name -->
+                    <div class="resource-name">{{ resource.title }}</div>
+                    
+                    <!-- Time cells -->
+                    {% for hour in time_slots %}
+                        <div class="time-cell"></div>
+                    {% endfor %}
+                    
+                    <!-- Events for this resource -->
+                    {% for event in events %}
+                        {% if event.resourceId == resource.id %}
+                            {% if event.start >= time_slots[0] and event.end <= time_slots[-1] + 1 %}
+                                {% set left_position = (event.start - time_slots[0]) * 80 + 150 %}
+                                {% set width = (event.end - event.start) * 80 %}
+                                <div class="event" style="left: {{ left_position }}px; width: {{ width }}px; background-color: {{ event.color }};">
+                                    {{ event.title }}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
