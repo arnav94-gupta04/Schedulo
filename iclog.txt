@@ -16,6 +16,15 @@ Arnav:
 4. The use of time.sleep(0.02) in the loop simulating a streaming response is a simple solution, but it can be improved. Consider using asynchronous programming (e.g., using asyncio) if you plan on scaling or if you want a more responsive user experience.
 5. Use ORM like ORM like SQLAlchemy 
 6. Consider moving inline CSS from your HTML templates to separate CSS files. This will simplify maintenance and allow you to leverage browser caching.
+
 Yasmeen:
+-We switched to making the gui with HTMX
+-All the comonents are made manually, including the timeline
+Adjustments:
+1.Need too fix the timeslot issue, along with drag and drop functionality. 
+Future reference:
+1.Use a function to adjust to teh nearest time solution
+2.Update the days and sturucture to see how it works 
+
 Abhsishek:
  
