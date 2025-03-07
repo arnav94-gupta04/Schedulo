@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        td {
+            height: 50px;
+        }
+
+        .day-column {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            font-weight: bold;
+            font-size: large;
+        }
+
+        /* for time to be coloured (i.e slots that come under time) */
+        td[colspan="13"] {
+            background-color: #e6f7ff;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Calender Timetable</h1>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">Days</th>
+                <th rowspan="2">Academic Year</th>
+                <th rowspan="2">Division</th>
+                <!-- Time Slots -->
+                <th colspan="13">Time Slots</th>
+            </tr>
+            <tr>
+                <!-- Time Range from 6 AM to 6 PM -->
+                <th>6:00</th> <th>7:00</th> <th>8:00</th> <th>9:00</th> <th>10:00</th> 
+                <th>11:00</th> <th>12:00</th> <th>13:00</th> <th>14:00</th> <th>15:00</th> 
+                <th>16:00</th> <th>17:00</th> <th>18:00</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Monday -->
+            <tr >
+                <td class="day-column" rowspan="12">Monday</td>
+                <td rowspan="3">FE</td>
+                <td>FE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">SE</td>
+                <td>SE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">TE</td>
+                <td>TE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">BE</td>
+                <td>BE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE3</td>
+                <td colspan="13"></td>
+            </tr>
+            
+            <!-- Tuesday -->
+            <tr>
+                <td class="day-column" rowspan="12">Tuesday</td>
+                <td rowspan="3">FE</td>
+                <td>FE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">SE</td>
+                <td>SE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">TE</td>
+                <td>TE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">BE</td>
+                <td>BE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE3</td>
+                <td colspan="13"></td>
+            </tr>
+
+            <!-- Wednesday -->
+            <tr>
+                <td class="day-column" rowspan="12">Wednesday</td>
+                <td rowspan="3">FE</td>
+                <td>FE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">SE</td>
+                <td>SE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">TE</td>
+                <td>TE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">BE</td>
+                <td>BE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE3</td>
+                <td colspan="13"></td>
+            </tr>
+
+            <!-- Thursday -->
+            <tr>
+                <td class="day-column" rowspan="12">Thursday</td>
+                <td rowspan="3">FE</td>
+                <td>FE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">SE</td>
+                <td>SE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">TE</td>
+                <td>TE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">BE</td>
+                <td>BE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE3</td>
+                <td colspan="13"></td>
+            </tr>
+
+            <!-- Friday -->
+            <tr>
+                <td class="day-column" rowspan="12">Friday</td>
+                <td rowspan="3">FE</td>
+                <td>FE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>FE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">SE</td>
+                <td>SE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>SE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">TE</td>
+                <td>TE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>TE3</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td rowspan="3">BE</td>
+                <td>BE1</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE2</td>
+                <td colspan="13"></td>
+            </tr>
+            <tr>
+                <td>BE3</td>
+                <td colspan="13"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
